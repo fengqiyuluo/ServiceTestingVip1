@@ -1,5 +1,7 @@
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 
@@ -7,10 +9,8 @@ public class testGetToken {
 
     @Test
     void testToken(){
-        RestAssured.given().log().all()
-                .queryParam("corpid","wwd6da61649bd66fea")
-                .queryParam("corpsecret","1JPyY9GvPLZfpvxEDjok-Xt_9v7HIBYJhZUoO6EgNGY")
-                .when().get("https://qyapi.weixin.qq.com/cgi=bin/gettoken")
-                .then().log().all().statusCode(404);
+        Wework wework = new Wework();
+        String token = wework.getToken();
+        assertThat(token, not(equalTo(null)));
     }
 }
